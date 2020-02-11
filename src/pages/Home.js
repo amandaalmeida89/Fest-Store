@@ -5,6 +5,9 @@ import Card from "../components/Card";
 const Home = () => {
   const [products, setProducts] = useState('');
 
+  //   console.log(products)
+
+
   useEffect(() => {
     fetch('http://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/db')
       .then(res => res.json())
@@ -17,13 +20,15 @@ const Home = () => {
   return (
     <div>
       <Header
+      quant='1'
+      total='10'
         name="Teste"
         handleClick={() => console.log('oi')}
         id="button" />
+      {/* <section>
+        <Card productsState={products} />
+      </section> */}
     </div>
-    <section>
-        <Card productsState={products}/>
-    </section>
 
   )
 
