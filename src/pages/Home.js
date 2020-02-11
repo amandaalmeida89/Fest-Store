@@ -16,17 +16,17 @@ const Home = () => {
   }, [])
 
   return (
-    <div>
-      <Header
-      quant='1'
-      total='10'
-        name="Teste"
-        handleClick={() => console.log('oi')}
-        id="button" />
+    <>
+      <div>
+        <Header
+          name="Teste"
+          handleClick={() => console.log('oi')}
+          id="button" />
+      </div>
       <section>
-        <Card productsState={products} />
-      </section> 
-    </div>
+          <Card productsState={products}/>
+      </section>
+    </>
 
   )
 
