@@ -20,9 +20,8 @@ const Home = () => {
       <Header
       quant='1'
       total='10'
-        name="Teste"
-        handleClick={() => console.log('oi')}
-        id="button" />
+      handleClick={() => console.log('oi')}
+      />
       <section>
         <Card productsState={products} />
       </section> 
