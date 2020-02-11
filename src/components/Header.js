@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from '../img/logo.png';
 import { StyleSheet, css } from 'aphrodite';
-import Button from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -43,14 +42,14 @@ const styles = StyleSheet.create({
 });
 
 
-const Header = ({ quant, total }) => {
+const Header = ({ quant, total, handleClick }) => {
   return (
     <header className={css(styles.header)}>
       <img className={css(styles.img)} src={logo} alt="logo" />
 
       <div className={css(styles.span)}>
         <button
-          onClick={() => console.log('oi')}
+          onClick={handleClick}
           className={css(styles.car)}
         >
           <FontAwesomeIcon icon={faCartPlus} />
