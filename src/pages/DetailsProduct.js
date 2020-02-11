@@ -42,8 +42,8 @@ const DetailsProduct = () => {
  
   
   useEffect(() => {
-    const xuxu = new URL (window.location.href);
-    const id = xuxu.searchParams.get('id')
+    const url = new URL (window.location.href);
+    const id = url.searchParams.get('id')
     fetch('http://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/products/' + id)
       .then(res => res.json())
       .then((snap) => {
@@ -52,8 +52,6 @@ const DetailsProduct = () => {
       })
   }, [])
 
-
-  
 	return (
 		<>
     <Header
