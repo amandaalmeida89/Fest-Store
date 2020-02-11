@@ -5,6 +5,7 @@ import Card from "../components/Card";
 const Home = () => {
   const [products, setProducts] = useState('');
 
+
   useEffect(() => {
     fetch('http://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/db')
       .then(res => res.json())
