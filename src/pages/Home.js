@@ -15,15 +15,17 @@ const Home = () => {
   }, [])
 
   return (
-    <div>
-      <Header
-        name="Teste"
-        handleClick={() => console.log('oi')}
-        id="button" />
-    </div>
-    <section>
-        <Card productsState={products}/>
-    </section>
+    <>
+      <div>
+        <Header
+          name="Teste"
+          handleClick={() => console.log('oi')}
+          id="button" />
+      </div>
+      <section>
+          <Card productsState={products}/>
+      </section>
+    </>
 
   )
 
