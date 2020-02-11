@@ -16,12 +16,16 @@ const styles = StyleSheet.create({
 
 const Card = (props) => {
     const productsState = props.productsState;
-    console.log(productsState);
 
     return (
         <section className={css(styles.Cards)}>
             {productsState && productsState.map(item => 
-               <ItemCard key={item.id} item={item}/>
+               <ItemCard key={item.id} item={item}
+               onClick = {(e)=> {
+                   props.productsDetails(item)
+                   e.preventDefault();
+               }}
+               />
             )}
       
         </section>

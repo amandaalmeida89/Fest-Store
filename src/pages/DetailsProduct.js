@@ -12,9 +12,12 @@ const styles = StyleSheet.create({
 const DetailsProduct = () => {
 
   const [products, setProducts] = useState('');
-
-  useEffect((id) => {
-    fetch('http://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/products/1')
+ 
+  
+  useEffect(() => {
+    const xuxu = new URL (window.location.href);
+    const id = xuxu.searchParams.get('id')
+    fetch('http://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/products/' + id)
       .then(res => res.json())
       .then((snap) => {
         setProducts(snap)
