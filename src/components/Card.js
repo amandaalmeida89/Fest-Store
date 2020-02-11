@@ -1,22 +1,17 @@
 import React from 'react';
-import Input from './Input'
+import ItemCard from './ItemCard'
 
 const Card = (props) => {
     const productsState = props.productsState;
     console.log(productsState);
-    
+
     return (
         <section className={props.class}>
-            {productsState && productsState.map(item => {
-        <Input 
-        type = {item.image}
-         />
-                
-            })
-                
-            }
+            {productsState && productsState.map(item => 
+               <ItemCard key={item.id} item={item}/>
+            )}
+      
         </section>
     )
 }
 export default Card;
-        
