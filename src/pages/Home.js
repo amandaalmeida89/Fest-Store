@@ -23,13 +23,14 @@ const Home = () => {
   }
 
   return (
+
     <>
-      <div>
-        <Header
-          name="Teste"
-          handleClick={() => console.log('oi')}
-          id="button" />
-      </div>
+    <div>
+      <Header
+      quant='1'
+      total='10'
+      handleClick={() => console.log('oi')}
+      />
       <section>
           <Card productsState={products} productsDetails={productsDetails}/>
       </section>

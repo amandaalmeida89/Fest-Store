@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     border: 'none',
     height: '5vh',
     width: '15vw',
+    fontWeight:'bolder'
   },
 });
 

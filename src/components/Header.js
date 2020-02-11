@@ -6,10 +6,13 @@ import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 const styles = StyleSheet.create({
   img: {
-    marginTop: '1vh',
+
     height: '8vh',
     width: '6vw',
     borderRadius: '5px',
+    '@media (max-width: 768px)': {
+      width: '20vw'
+    },
   },
   header: {
     boxSizing: 'border-box',
@@ -20,6 +23,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '10vh',
+    position:'fixed',
+    '@media (min-width: 768px)': {
+      height:'10vh',
+    },
   },
   car: {
     borderRadius: '5px',
@@ -36,7 +43,7 @@ const styles = StyleSheet.create({
     width: '12vw',
     height: '5vh',
     padding: '0',
-    marginRight: '0px',
+    marginRight: '20px',
   }
 
 });
