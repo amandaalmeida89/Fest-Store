@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Header from '../components/Header';
 import Card from "../components/Card";
+import { useHistory } from 'react-router-dom';
 
 const Home = () => {
   const [products, setProducts] = useState('');
+  const  history = useHistory();
 
 
   useEffect(() => {
@@ -15,7 +17,14 @@ const Home = () => {
       })
   }, [])
 
+  const productsDetails = (item) => {
+    const id = item.id;
+    history.push("/product?id="+id)
+  }
+
   return (
+
+    <>
     <div>
       <Header
       quant='1'
@@ -23,9 +32,9 @@ const Home = () => {
       handleClick={() => console.log('oi')}
       />
       <section>
-        <Card productsState={products} />
-      </section> 
-    </div>
+          <Card productsState={products} productsDetails={productsDetails}/>
+      </section>
+    </>
 
   )
 
