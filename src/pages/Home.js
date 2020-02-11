@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Header from '../components/Header';
+import Card from "../components/Card";
 
 const Home = () => {
   const [products, setProducts] = useState('');
-  console.log(products)
+//   console.log(products)
 
   useEffect(() => {
     fetch('http://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/db')
@@ -21,6 +22,10 @@ const Home = () => {
         handleClick={() => console.log('oi')}
         id="button" />
     </div>
+    <section>
+        <Card productsState={products}/>
+    </section>
+
   )
 
 }
