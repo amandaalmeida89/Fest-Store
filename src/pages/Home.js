@@ -26,9 +26,6 @@ const Home = () => {
     <>
       <div>
         <Header
-          quant='1'
-          total='10'
-          handleClick={() => console.log('oi')}
         />
         <section>
           <Card productsState={products} productsDetails={productsDetails} />

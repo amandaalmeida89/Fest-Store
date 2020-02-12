@@ -72,9 +72,6 @@ const DetailsProduct = () => {
   return (
     <>
       <Header
-        quant='1'
-        total='10'
-        handleClick={() => console.log('oi')}
       />
       <Link to="/">Voltar</Link>
       <main className={css(styles.main)}>

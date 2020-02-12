@@ -3,6 +3,7 @@ import logo from '../img/fest store logo.png';
 import { StyleSheet, css } from 'aphrodite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import Carrinho from '../pages/Carrinho'
 
 const styles = StyleSheet.create({
   img: {
@@ -47,17 +48,18 @@ const styles = StyleSheet.create({
     '@media (max-width: 768px)': {
       marginRight:'10%',
     },
- 
   }
-
 });
 
 
-const Header = ({ quant, total, handleClick }) => {
+const Header = () => {
+  const totalvalue = Carrinho().props.children[0].props.total
+  const totalquant = Carrinho().props.children[0].props.quant
+  const handleClick = Carrinho().props.children[0].props.handleClick;
+  
   return (
     <header className={css(styles.header)}>
       <img className={css(styles.img)} src={logo} alt="logo" />
-
       <div className={css(styles.span)}>
         <button
           onClick={handleClick}
@@ -65,8 +67,8 @@ const Header = ({ quant, total, handleClick }) => {
         >
           <FontAwesomeIcon icon={faCartPlus} />
         </button>
-        {quant ? <span>{quant}</span> : ''}
-        {total ? <span>{Number(total).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span> : ''}
+        {totalquant ? <span>{totalquant}</span> : ''}
+        {totalvalue ? <span>{totalvalue.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span> : ''}
       </div>
     </header>
   )
