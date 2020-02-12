@@ -9,6 +9,9 @@ import { useHistory } from 'react-router-dom';
 import app from "../Utils/firebaseconfig";
 import Swal from 'sweetalert2'
 import Input from '../components/Input';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const styles = StyleSheet.create({
   main: {
@@ -77,6 +80,7 @@ const Carrinho = () => {
     if (item.quantity === 1) {
       delete cart.products[item.id];
       setCart(cart);
+      history.push('/')
     } else {
       item.quantity = item.quantity - 1;
       cart.products[item.id] = item;
@@ -85,7 +89,15 @@ const Carrinho = () => {
   };
 
   const createOrder = () => {
-    if(!Object.keys(cart).length){
+    if(Object.keys(cart).length <= 1  &&
+    !cpfState.length && 
+    !nameState.length && 
+    !cepState.length && 
+    !streetState.length && 
+    !neighborhoodState.length && 
+    !cityState.length && 
+    !numberState.length
+    ) {
       history.push('/')
     } else {
       app
@@ -126,24 +138,26 @@ const Carrinho = () => {
         total={total().totalValue}
         handleClick={() => history.push('/carrinho')}
       />
+      <Link to="/" className={css(styles.Link)}><FontAwesomeIcon icon={faArrowLeft} /></Link>
       <main className={css(styles.main)}>
-
         {Object.values(cart.products).map((item) => <CartItem key={item.id} addItemToList={addItemToList}
           removeItemList={removeItemList} item={item} ></CartItem>)}
         <div>
           <span className={css(styles.span)}>{total().totalValue.toLocaleString('pt-br',
             { style: 'currency', currency: 'BRL' })}</span>
-        </div>s
-        <form>
-          <Input className={css(styles.form)} placeholder="CPF" type="number" value={cpfState} onChange={(e) => setCpf(e.currentTarget.value)}></Input>
-          <Input className={css(styles.form)} placeholder="Nome" type="text" value={nameState} onChange={(e) => setName(e.currentTarget.value)}></Input>
-          <Input className={css(styles.form)} placeholder="CEP" type="number" value={cepState} onChange={(e) => setCep(e.currentTarget.value)}
-          ></Input>
-          <Input className={css(styles.form)} placeholder="Rua" type="text" value={streetState} onChange={(e) => setStreet(e.currentTarget.value)}></Input>
-          <Input className={css(styles.form)} placeholder="Bairro" type="text" value={neighborhoodState} onChange={(e) => setNeighborhood(e.currentTarget.value)}></Input>
-          <Input className={css(styles.form)} placeholder="Cidade" type="text" value={cityState} onChange={(e) => setCity(e.currentTarget.value)}></Input>
-          <Input className={css(styles.form)} placeholder="Numero" type="text" value={numberState} onChange={(e) => setNumber(e.currentTarget.value)}></Input>
-        </form>
+        </div>
+        <fieldset>
+          <form>
+            <Input className={css(styles.form)} placeholder="CPF" type="number" value={cpfState} onChange={(e) => setCpf(e.currentTarget.value)} maxLength="11" ></Input>
+            <Input className={css(styles.form)} placeholder="Nome" type="text" value={nameState} onChange={(e) => setName(e.currentTarget.value)} maxLength="50"></Input>
+            <Input className={css(styles.form)} placeholder="CEP" type="number" value={cepState} onChange={(e) => setCep(e.currentTarget.value)} maxLength="9"
+            ></Input>
+            <Input className={css(styles.form)} placeholder="Rua" type="text" value={streetState} onChange={(e) => setStreet(e.currentTarget.value)} maxLength="20"></Input>
+            <Input className={css(styles.form)} placeholder="Bairro" type="text" value={neighborhoodState} onChange={(e) => setNeighborhood(e.currentTarget.value)} maxLength="20"></Input>
+            <Input className={css(styles.form)} placeholder="Cidade" type="text" value={cityState} onChange={(e) => setCity(e.currentTarget.value)} maxLength="30"></Input>
+            <Input className={css(styles.form)} placeholder="Numero" type="text" value={numberState} onChange={(e) => setNumber(e.currentTarget.value)} maxLength="5"></Input>
+          </form>
+        </fieldset>
         <div className={css(styles.ButtonPosition)}>
           <Button
             name='Finalizar Compra'
