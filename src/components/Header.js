@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
       height: '12vh',
     },
   },
-  
+
   header: {
     boxSizing: 'border-box',
     backgroundColor: '#ffcc02',
@@ -49,8 +49,16 @@ const styles = StyleSheet.create({
     padding: '0',
     marginRight: '20px',
     '@media (max-width: 768px)': {
-      marginRight: '12%',
+      marginRight: '18%',
     },
+  },
+
+  spanNumber: {
+    marginRight:'15%',
+    marginLeft:'1%',
+    '@media (max-width: 768px)': {
+      marginRight:'60%',
+    }
   }
 });
 
@@ -69,7 +77,7 @@ const Header = () => {
         >
           <FontAwesomeIcon icon={faCartPlus} />
         </button>
-        {totalquant ? <span>{totalquant}</span> : ''}
+        {totalquant ? <span className={css(styles.spanNumber)}>{totalquant}</span> : ''}
         {totalvalue ? <span>{totalvalue.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span> : ''}
       </div>
     </header>
