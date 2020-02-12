@@ -4,6 +4,8 @@ import Button from '../components/Button';
 import { CartContext } from '../CartContext';
 import CartItem from '../components/CartItem';
 import { StyleSheet, css } from 'aphrodite';
+import app from "../Utils/firebaseconfig";
+
 
 const styles = StyleSheet.create({
   main: {
@@ -16,17 +18,20 @@ const styles = StyleSheet.create({
 
 const Carrinho = () => {
   const { cart, setCart } = useContext(CartContext);
+
   console.log(cart)
 
-  // const total = cart.products.reduce((acc, currentValue) => acc + (currentValue.price * currentValue.quantity));
   const total = () => {
-    const arr = [];
-    for (let i in cart.products){
-      arr.push(cart.products[i].price*cart.products[i].quantity)
-    console.log(arr);
+    if (!cart.products) {
+      return 0;
+    } else {
+      const arr = [0];
+      for (let i in cart.products) {
+        arr.push(cart.products[i].price * cart.products[i].quantity)
+        console.log(arr);
+      }
+      return arr.reduce((acc, currentValue) => acc + currentValue);
     }
-    
-    return arr.reduce((acc, currentValue) => acc + currentValue);
   }
 
   const addItemToList = (item) => {
@@ -46,18 +51,37 @@ const Carrinho = () => {
     }
   }
 
+  const createOrder = () => {
+    app
+      .firestore()
+      .collection("orders")
+      .add({
+        order: cart,
+        addedAt: new Date().getTime(),
+      })
+      .then(() => {
+        console.log('oi')
+      }).catch((err) => {
+        console.log(err)
+      })
+  };
+
   return (
     <>
       <Header />
       <main className={css(styles.main)}>
-        {Object.values(cart.products).map((item) => <CartItem key={item.id} addItemToList={addItemToList} 
-        removeItemList={removeItemList} item={item} total={total}></CartItem>)}
-      <div>
-        <span>{total().toLocaleString('pt-br', 
-        { style: 'currency', currency: 'BRL' })}</span>
-      </div>
+        {Object.values(cart.products).map((item) => <CartItem key={item.id} addItemToList={addItemToList}
+          removeItemList={removeItemList} item={item}></CartItem>)}
+        <div>
+          <span>{total().toLocaleString('pt-br',
+            { style: 'currency', currency: 'BRL' })}</span>
+        </div>
         <Button
           name='Finalizar Compra'
+          handleClick={(e) => {
+            createOrder()
+            e.preventDefault()
+          }}
         />
       </main>
     </>
