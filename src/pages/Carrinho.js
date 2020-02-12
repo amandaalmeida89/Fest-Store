@@ -4,14 +4,14 @@ import Button from '../components/Button';
 import { CartContext } from '../CartContext';
 import CartItem from '../components/CartItem';
 import { StyleSheet, css } from 'aphrodite';
-import { useHistory } from 'react-router';
+import app from "../Utils/firebaseconfig";
 
 const styles = StyleSheet.create({
   main: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: '10%',
-  },
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "10%"
+  }
 });
 
 const Carrinho = () => {
@@ -28,15 +28,16 @@ const Carrinho = () => {
       totalValue = totalValue.reduce((acc, currentValue) => acc + currentValue)
       totalItem = totalItem.reduce((acc, currentValue) => acc + currentValue)
       return {totalValue,totalItem};
+
   }
 
-  const addItemToList = (item) => {
+  const addItemToList = item => {
     item.quantity = item.quantity + 1;
     cart.products[item.id] = item;
     setCart(cart);
   };
 
-  const removeItemList = (item) => {
+  const removeItemList = item => {
     if (item.quantity === 1) {
       delete cart.products[item.id];
       setCart(cart);
@@ -45,7 +46,22 @@ const Carrinho = () => {
       cart.products[item.id] = item;
       setCart(cart);
     }
-  }
+  };
+
+  const createOrder = () => {
+    app
+      .firestore()
+      .collection("orders")
+      .add({
+        order: cart,
+        addedAt: new Date().getTime(),
+      })
+      .then(() => {
+        console.log('oi')
+      }).catch((err) => {
+        console.log(err)
+      })
+  };
 
   return (
     <>
@@ -61,12 +77,18 @@ const Carrinho = () => {
         <span>{total().totalValue.toLocaleString('pt-br', 
         { style: 'currency', currency: 'BRL' })}</span>
       </div>
+
         <Button
           name='Finalizar Compra'
+          handleClick={(e) => {
+            createOrder()
+            e.preventDefault()
+          }}
         />
+
       </main>
     </>
-  )
-}
+  );
+};
 
 export default Carrinho;
