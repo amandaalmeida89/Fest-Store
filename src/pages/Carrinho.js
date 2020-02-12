@@ -10,7 +10,18 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     marginTop: "10%"
-  }
+  },
+  span: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: '20px',
+    fontWeight: 'bolder',
+  },
+  ButtonPosition: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: '20px',
+  },
 });
 
 const Carrinho = () => {
@@ -19,12 +30,12 @@ const Carrinho = () => {
   const total = () => {
     if (!cart.products) {
       return 0;
-      }else {
+    } else {
       const arr = [0];
       for (let i in cart.products) {
         arr.push(cart.products[i].price * cart.products[i].quantity);
       }
-        return arr.reduce((acc, currentValue) => acc + currentValue);
+      return arr.reduce((acc, currentValue) => acc + currentValue);
     }
   };
 
@@ -59,14 +70,16 @@ const Carrinho = () => {
           ></CartItem>
         ))}
         <div>
-          <span>
+          <span className={css(styles.span)}>
             {total().toLocaleString("pt-br", {
               style: "currency",
               currency: "BRL"
             })}
           </span>
         </div>
-        <Button name="Finalizar Compra" />
+        <div className={css(styles.ButtonPosition)}>
+          <Button name="Finalizar Compra" />
+        </div>
       </main>
     </>
   );
