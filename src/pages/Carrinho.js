@@ -11,7 +11,18 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     marginTop: "10%"
-  }
+  },
+  span: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: '20px',
+    fontWeight: 'bolder',
+  },
+  ButtonPosition: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: '20px',
+  },
 });
 
 const Carrinho = () => {
@@ -19,6 +30,7 @@ const Carrinho = () => {
   const history = useHistory();
 
   const total = () => {
+
       let totalItem = [0];
       let totalValue = [0];
       for (let i in cart.products){
@@ -30,6 +42,7 @@ const Carrinho = () => {
       return {totalValue,totalItem};
 
   }
+
 
   const addItemToList = item => {
     item.quantity = item.quantity + 1;
@@ -71,13 +84,16 @@ const Carrinho = () => {
       handleClick={() => history.push('/carrinho')}
       />
       <main className={css(styles.main)}>
+
+        
+
         {Object.values(cart.products).map((item) => <CartItem key={item.id} addItemToList={addItemToList} 
         removeItemList={removeItemList} item={item} ></CartItem>)}
       <div>
-        <span>{total().totalValue.toLocaleString('pt-br', 
+        <span className={css(styles.span)}>{total().totalValue.toLocaleString('pt-br', 
         { style: 'currency', currency: 'BRL' })}</span>
       </div>
-
+      <div className={css(styles.ButtonPosition)}>
         <Button
           name='Finalizar Compra'
           handleClick={(e) => {
@@ -85,6 +101,8 @@ const Carrinho = () => {
             e.preventDefault()
           }}
         />
+  </div>
+
 
       </main>
     </>
