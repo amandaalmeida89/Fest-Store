@@ -34,6 +34,7 @@ const Home = () => {
       <section>
           <Card productsState={products} productsDetails={productsDetails}/>
       </section>
+    </div>
     </>
 
   )
