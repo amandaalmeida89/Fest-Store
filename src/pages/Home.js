@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Header from '../components/Header';
 import Card from "../components/Card";
+import { useHistory } from 'react-router-dom';
 
 const Home = () => {
   const [products, setProducts] = useState('');
+  const  history = useHistory();
+
 
   useEffect(() => {
     fetch('http://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/db')
@@ -14,18 +17,23 @@ const Home = () => {
       })
   }, [])
 
+  const productsDetails = (item) => {
+    const id = item.id;
+    history.push("/product?id="+id)
+  }
+
   return (
-      <>
     <div>
       <Header
-        name="Teste"
-        handleClick={() => console.log('oi')}
-        id="button" />
+      quant='1'
+      total='10'
+      handleClick={() => console.log('oi')}
+      />
+      <section>
+          <Card productsState={products} productsDetails={productsDetails}/>
+      </section>
     </div>
-    <section>
-        <Card productsState={products}/>
-    </section>
-    </>
+
   )
 }
 
