@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '10vh',
-    position:'fixed',
+    // position:'fixed',
     '@media (min-width: 768px)': {
       height:'10vh',
     },
