@@ -10,10 +10,11 @@ const styles = StyleSheet.create({
     height: '12vh',
     width: '6vw',
     '@media (max-width: 768px)': {
-      width: '20vw',
-      height:'12vh',
+      width: '22vw',
+      height: '12vh',
     },
   },
+
   header: {
     boxSizing: 'border-box',
     backgroundColor: '#ffcc02',
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
       height: '10vh',
     },
   },
+
   car: {
     background: '#ffcc02',
     border: 'none',
@@ -37,6 +39,7 @@ const styles = StyleSheet.create({
       fontSize: '4vh',
     },
   },
+
   span: {
     display: 'flex',
     alignItems: 'center',
@@ -46,8 +49,16 @@ const styles = StyleSheet.create({
     padding: '0',
     marginRight: '20px',
     '@media (max-width: 768px)': {
-      marginRight:'10%',
+      marginRight: '18%',
     },
+  },
+
+  spanNumber: {
+    marginRight:'15%',
+    marginLeft:'1%',
+    '@media (max-width: 768px)': {
+      marginRight:'60%',
+    }
   }
 });
 
@@ -55,7 +66,7 @@ const Header = () => {
   const totalvalue = Carrinho().props.children[0].props.total
   const totalquant = Carrinho().props.children[0].props.quant
   const handleClick = Carrinho().props.children[0].props.handleClick;
-  
+
   return (
     <header className={css(styles.header)}>
       <img className={css(styles.img)} src={logo} alt="logo" />
@@ -66,7 +77,7 @@ const Header = () => {
         >
           <FontAwesomeIcon icon={faCartPlus} />
         </button>
-        {totalquant ? <span>{totalquant}</span> : ''}
+        {totalquant ? <span className={css(styles.spanNumber)}>{totalquant}</span> : ''}
         {totalvalue ? <span>{totalvalue.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span> : ''}
       </div>
     </header>
