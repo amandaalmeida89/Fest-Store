@@ -1,40 +1,40 @@
 import React from 'react';
-import logo from '../img/logo.png';
+import logo from '../img/fest store logo.png';
 import { StyleSheet, css } from 'aphrodite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
 const styles = StyleSheet.create({
   img: {
-
-    height: '8vh',
+    height: '12vh',
     width: '6vw',
-    borderRadius: '5px',
     '@media (max-width: 768px)': {
-      width: '20vw'
+      width: '20vw',
+      height:'12vh',
     },
   },
   header: {
     boxSizing: 'border-box',
-    backgroundColor: '#348BCB',
+    backgroundColor: '#ffcc02',
     display: 'flex',
     padding: '0 15px',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
     height: '10vh',
-    // position:'fixed',
     '@media (min-width: 768px)': {
-      height:'10vh',
+      height: '10vh',
     },
   },
   car: {
-    borderRadius: '5px',
-    background: '#348BCB',
+    background: '#ffcc02',
     border: 'none',
     height: '6vh',
     fontSize: '35px',
-    color:'white',
+    color: '#348BCB',
+    '@media (max-width: 768px)': {
+      fontSize: '4vh',
+    },
   },
   span: {
     display: 'flex',
@@ -44,6 +44,10 @@ const styles = StyleSheet.create({
     height: '5vh',
     padding: '0',
     marginRight: '20px',
+    '@media (max-width: 768px)': {
+      marginRight:'10%',
+    },
+ 
   }
 
 });
@@ -62,7 +66,7 @@ const Header = ({ quant, total, handleClick }) => {
           <FontAwesomeIcon icon={faCartPlus} />
         </button>
         {quant ? <span>{quant}</span> : ''}
-        {total ? <span>{Number(total).toLocaleString('pt-br', { style: 'currency', currency: 'BRL'})}</span> : ''}
+        {total ? <span>{Number(total).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span> : ''}
       </div>
     </header>
   )

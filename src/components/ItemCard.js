@@ -4,14 +4,17 @@ import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
   Card: {
+    backgroundColor:'white',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '80%',
-    height: '300px',
+    height: '400px',
     boxShadow: '2px 2px 2px 2px gray',
+    borderRadius:'10px',
     padding: '10px',
     marginTop: '5%',
+    marginBottom:'5%',
     '@media (min-width: 1270px)': {
       width: '20%',
       height: '400px',

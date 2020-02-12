@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         width: '100%',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        marginTop: '5%',
+        marginTop: '1%',
     },
 })
 
