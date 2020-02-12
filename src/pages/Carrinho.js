@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useState ,useContext } from 'react';
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { CartContext } from '../CartContext';
 import CartItem from '../components/CartItem';
 import { StyleSheet, css } from 'aphrodite';
+import { useHistory } from 'react-router-dom';
 import app from "../Utils/firebaseconfig";
+import Swal from 'sweetalert2'
 
 const styles = StyleSheet.create({
   main: {
@@ -28,13 +30,13 @@ const Carrinho = () => {
       totalValue = totalValue.reduce((acc, currentValue) => acc + currentValue)
       totalItem = totalItem.reduce((acc, currentValue) => acc + currentValue)
       return {totalValue,totalItem};
-
   }
 
   const addItemToList = item => {
     item.quantity = item.quantity + 1;
     cart.products[item.id] = item;
     setCart(cart);
+    console.log(Header)
   };
 
   const removeItemList = item => {
@@ -49,18 +51,31 @@ const Carrinho = () => {
   };
 
   const createOrder = () => {
-    app
-      .firestore()
-      .collection("orders")
-      .add({
-        order: cart,
-        addedAt: new Date().getTime(),
-      })
-      .then(() => {
-        console.log('oi')
-      }).catch((err) => {
-        console.log(err)
-      })
+    if(!Object.keys(cart).length){
+      history.push('/')
+    } else {
+      app
+        .firestore()
+        .collection("orders")
+        .add({
+          order: cart,
+          addedAt: new Date().getTime(),
+        })
+        .then(() => {
+          Swal.fire({
+            title: 'Pedido enviado',
+            icon: 'success',
+          }).then(() => {
+            localStorage.removeItem('cart');
+          }).then(() => history.push('/'))
+        })
+        .catch((err) => {
+          Swal.fire({
+            title: 'Erro ao enviar pedido',
+            icon: 'error',
+          })
+        })
+      }
   };
 
   return (

@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
   }
 });
 
-
 const Header = () => {
   const totalvalue = Carrinho().props.children[0].props.total
   const totalquant = Carrinho().props.children[0].props.quant
