@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
 
 const CartItem = (props) => {
   const item = props.item;
-  const total = props.total;
 
   return (
     <section className={css(styles.Cart)} key={item.id}>

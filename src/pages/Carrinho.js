@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
-import Header from "../components/Header";
-import Button from "../components/Button";
-import { CartContext } from "../CartContext";
-import CartItem from "../components/CartItem";
-import { StyleSheet, css } from "aphrodite";
+import React, { useContext } from 'react';
+import Header from '../components/Header';
+import Button from '../components/Button';
+import { CartContext } from '../CartContext';
+import CartItem from '../components/CartItem';
+import { StyleSheet, css } from 'aphrodite';
+import app from "../Utils/firebaseconfig";
 
 const styles = StyleSheet.create({
   main: {
@@ -26,18 +27,22 @@ const styles = StyleSheet.create({
 
 const Carrinho = () => {
   const { cart, setCart } = useContext(CartContext);
+  const history = useHistory();
 
   const total = () => {
-    if (!cart.products) {
-      return 0;
-    } else {
-      const arr = [0];
-      for (let i in cart.products) {
-        arr.push(cart.products[i].price * cart.products[i].quantity);
+
+      let totalItem = [0];
+      let totalValue = [0];
+      for (let i in cart.products){
+        totalValue.push(cart.products[i].price*cart.products[i].quantity)
+        totalItem.push(cart.products[i].quantity)
       }
-      return arr.reduce((acc, currentValue) => acc + currentValue);
-    }
-  };
+      totalValue = totalValue.reduce((acc, currentValue) => acc + currentValue)
+      totalItem = totalItem.reduce((acc, currentValue) => acc + currentValue)
+      return {totalValue,totalItem};
+
+  }
+
 
   const addItemToList = item => {
     item.quantity = item.quantity + 1;
@@ -56,30 +61,49 @@ const Carrinho = () => {
     }
   };
 
+  const createOrder = () => {
+    app
+      .firestore()
+      .collection("orders")
+      .add({
+        order: cart,
+        addedAt: new Date().getTime(),
+      })
+      .then(() => {
+        console.log('oi')
+      }).catch((err) => {
+        console.log(err)
+      })
+  };
+
   return (
     <>
-      <Header />
+      <Header 
+      quant={total().totalItem}
+      total={total().totalValue}
+      handleClick={() => history.push('/carrinho')}
+      />
       <main className={css(styles.main)}>
-        {Object.values(cart.products).map(item => (
-          <CartItem
-            key={item.id}
-            addItemToList={addItemToList}
-            removeItemList={removeItemList}
-            item={item}
-            total={total}
-          ></CartItem>
-        ))}
-        <div>
-          <span className={css(styles.span)}>
-            {total().toLocaleString("pt-br", {
-              style: "currency",
-              currency: "BRL"
-            })}
-          </span>
-        </div>
-        <div className={css(styles.ButtonPosition)}>
-          <Button name="Finalizar Compra" />
-        </div>
+
+        
+
+        {Object.values(cart.products).map((item) => <CartItem key={item.id} addItemToList={addItemToList} 
+        removeItemList={removeItemList} item={item} ></CartItem>)}
+      <div>
+        <span className={css(styles.span)}>{total().totalValue.toLocaleString('pt-br', 
+        { style: 'currency', currency: 'BRL' })}</span>
+      </div>
+      <div className={css(styles.ButtonPosition)}>
+        <Button
+          name='Finalizar Compra'
+          handleClick={(e) => {
+            createOrder()
+            e.preventDefault()
+          }}
+        />
+  </div>
+
+
       </main>
     </>
   );

@@ -106,9 +106,6 @@ const DetailsProduct = () => {
   return (
     <>
       <Header
-        quant='1'
-        total='10'
-        handleClick={() => console.log('oi')}
       />
       <Link to="/"className={css(styles.Link)}><FontAwesomeIcon icon={faArrowLeft} /></Link>
       <main className={css(styles.main)}>
