@@ -16,17 +16,19 @@ const styles = StyleSheet.create({
 
 const Carrinho = () => {
   const { cart, setCart } = useContext(CartContext);
+  const history = useHistory();
 
   const total = () => {
-    if (!cart.products) {
-      return 0;
-    } else {
-      const arr = [0];
-      for (let i in cart.products) {
-        arr.push(cart.products[i].price * cart.products[i].quantity)
+      let totalItem = [0];
+      let totalValue = [0];
+      for (let i in cart.products){
+        totalValue.push(cart.products[i].price*cart.products[i].quantity)
+        totalItem.push(cart.products[i].quantity)
       }
-      return arr.reduce((acc, currentValue) => acc + currentValue);
-    }
+      totalValue = totalValue.reduce((acc, currentValue) => acc + currentValue)
+      totalItem = totalItem.reduce((acc, currentValue) => acc + currentValue)
+      return {totalValue,totalItem};
+
   }
 
   const addItemToList = item => {
@@ -63,15 +65,19 @@ const Carrinho = () => {
 
   return (
     <>
-      <Header />
+      <Header 
+      quant={total().totalItem}
+      total={total().totalValue}
+      handleClick={() => history.push('/carrinho')}
+      />
       <main className={css(styles.main)}>
-        {Object.values(cart.products).map((item) => <CartItem key={item.id} addItemToList={addItemToList}
-          removeItemList={removeItemList} item={item} total={total}
-></CartItem>)}
-        <div>
-          <span>{total().toLocaleString('pt-br',
-            { style: 'currency', currency: 'BRL' })}</span>
-        </div>
+        {Object.values(cart.products).map((item) => <CartItem key={item.id} addItemToList={addItemToList} 
+        removeItemList={removeItemList} item={item} ></CartItem>)}
+      <div>
+        <span>{total().totalValue.toLocaleString('pt-br', 
+        { style: 'currency', currency: 'BRL' })}</span>
+      </div>
+
         <Button
           name='Finalizar Compra'
           handleClick={(e) => {
