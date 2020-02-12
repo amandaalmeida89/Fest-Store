@@ -6,34 +6,35 @@ const styles = StyleSheet.create({
 
   Cart: {
     width: '80%',
-      borderRadius:'10px',
-      display:'flex',
-      alignItems:'center',
-      marginLeft:'25px',
-      marginBottom:'20px',
-      border: '1px solid gray',
-     
+    borderRadius: '10px',
+    display: 'flex',
+    alignItems: 'center',
+    marginLeft: '25px',
+    marginBottom: '20px',
+    border: '#348bcb groove 1px',
     '@media (min-width: 1270px)': {
       display: 'flex',
-      marginLeft:'150px',
-      width: '80%',
-      height:'100px',
-      justifyContent:'center',
+      marginLeft: '300px',
+      width: '60%',
+      height: '30vh',
+      justifyContent: 'center',
+      marginTop: '0%'
     }
   },
-  /* List:{
-   
-    
 
-  }, */
+  containerCard: {
+    width: '100%',
+  },
+
   inputPosition: {
     display: 'flex',
-      justifyContent: 'space-evenly',
-    
+    justifyContent: 'space-evenly',
   },
+
   number: {
     padding: '10px',
   },
+  
   plusMinus: {
     width: '50px',
     height: '40px',
@@ -46,9 +47,9 @@ const styles = StyleSheet.create({
     }
   },
 
-  pName:{
-    fontWeight:'bolder',
-    textAlign:'center',
+  pName: {
+    fontWeight: 'bolder',
+    textAlign: 'center',
   }
 })
 
@@ -57,7 +58,7 @@ const CartItem = (props) => {
 
   return (
     <section className={css(styles.Cart)} key={item.id}>
-      <div className={css(styles.List)}>
+      <div className={css(styles.containerCard)}>
         <p className={css(styles.pName)}>{item.name}</p>
         <p className={css(styles.pName)}>{item.price.toLocaleString("pt-BR",
           { style: "currency", currency: "BRL" })}</p>
