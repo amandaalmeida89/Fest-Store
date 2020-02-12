@@ -3,26 +3,36 @@ import Input from './Input';
 import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
-  Card:{
-    display:'flex',
-    flexDirection:'column',
-    alignItems:'center',
-    width:'80%',
-    height:'300px',
-    boxShadow:'2px 2px 2px 2px gray',
-    padding:'10px',
-    marginTop:'5%',   
-  },
-
-  ImageCard:{
-    width:'200px',
-    height:'200px',
-    '@media only screen (min-width: 1270px)': {
-      Card:{
-        width:'400px',
-        height:'400px',
-      }
+  Card: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '80%',
+    height: '300px',
+    boxShadow: '2px 2px 2px 2px gray',
+    padding: '10px',
+    marginTop: '5%',
+    '@media (min-width: 1270px)': {
+      width: '20%',
+      height: '400px',
+      marginRight: '5%',
     }
+  },
+  ImageCard: {
+    width: '200px',
+    height: '200px',
+    // '@media only screen (min-width: 1270px)': {
+    //   Card: {
+    //     width: '400px',
+    //     height: '400px',
+    //   }
+    // }
+  },
+  labelCard: {
+    padding: '10px',
+    marginTop: '10%',
+    fontWeight: 'bolder',
+    fontSize: '18px',
   }
 })
 
@@ -31,9 +41,9 @@ const ItemCard = (props) => {
 
   return (
     <section className={css(styles.Card)}>
-      <Input className={css(styles.ImageCard)}onClick={props.onClick} src={item.image} type="image" id={item.id} value={item.id} />
-      <label htmlFor={item.id}>{item.name}</label>
-      <label htmlFor={item.id}>{item.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</label>
+      <Input className={css(styles.ImageCard)} onClick={props.onClick} src={item.thumbnail} type="image" id={item.id} value={item.id} />
+      <label className={css(styles.labelCard)} htmlFor={item.id}>{item.name}</label>
+      <label className={css(styles.labelCard)} htmlFor={item.id}>{item.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</label>
     </section>
   )
 }

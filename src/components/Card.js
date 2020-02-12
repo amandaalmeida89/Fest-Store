@@ -3,15 +3,13 @@ import ItemCard from './ItemCard'
 import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
-  Cards:{
-    display:'flex',
-    width:'100%',
-   flexWrap:'wrap',
-   justifyContent:'center',
-   marginTop:'10%'
-   
-  },
-
+    Cards: {
+        display: 'flex',
+        width: '100%',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        marginTop: '5%',
+    },
 })
 
 const Card = (props) => {
@@ -19,15 +17,15 @@ const Card = (props) => {
 
     return (
         <section className={css(styles.Cards)}>
-            {productsState && productsState.map(item => 
-               <ItemCard key={item.id} item={item}
-               onClick = {(e)=> {
-                   props.productsDetails(item)
-                   e.preventDefault();
-               }}
-               />
+            {productsState && productsState.map(item =>
+                <ItemCard key={item.id} item={item}
+                    onClick={(e) => {
+                        props.productsDetails(item)
+                        e.preventDefault();
+                    }}
+                />
             )}
-      
+
         </section>
     )
 }
