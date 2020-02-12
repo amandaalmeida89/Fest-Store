@@ -20,13 +20,15 @@ const Carrinho = () => {
 
   // const total = cart.products.reduce((acc, currentValue) => acc + (currentValue.price * currentValue.quantity));
   const total = () => {
+    if(cart.products ===! null){
     const arr = [];
     for (let i in cart.products){
       arr.push(cart.products[i].price*cart.products[i].quantity)
-    console.log(arr);
-    }
-    
     return arr.reduce((acc, currentValue) => acc + currentValue);
+    }}
+    else{
+      return 0;
+    }
   }
 
   const addItemToList = (item) => {
