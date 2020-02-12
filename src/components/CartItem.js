@@ -12,9 +12,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     border: '1px solid gray',
-    width: '60%',
+    width: '80%',
     padding: '10px',
     fontWeight: 'bolder',
+    '@media (min-width: 1270px)': {
+      width: '60%'
+    }
   },
   list: {
     padding: '10px',

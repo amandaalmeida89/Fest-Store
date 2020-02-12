@@ -26,9 +26,9 @@ const Carrinho = () => {
   };
 
   const removeItemList = (item) => {
-    console.log(item)
-    if (item.quantity >= 0) {
-      delete item.id
+    if (item.quantity === 1) {
+      delete cart.products[item.id];
+      setCart(cart);
     } else {
       item.quantity = item.quantity - 1;
       cart.products[item.id] = item;
