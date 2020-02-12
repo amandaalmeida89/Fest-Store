@@ -1,11 +1,13 @@
-import React, { useContext, useState } from 'react';
+
+import React, { useState ,useContext } from 'react'
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { CartContext } from '../CartContext';
 import CartItem from '../components/CartItem';
 import { StyleSheet, css } from 'aphrodite';
-import app from "../Utils/firebaseconfig";
 import { useHistory } from 'react-router-dom';
+import app from "../Utils/firebaseconfig";
+import Swal from 'sweetalert2'
 import Input from '../components/Input';
 
 const styles = StyleSheet.create({
@@ -53,7 +55,6 @@ const Carrinho = () => {
   const history = useHistory();
 
   const total = () => {
-
     let totalItem = [0];
     let totalValue = [0];
     for (let i in cart.products) {
@@ -69,6 +70,7 @@ const Carrinho = () => {
     item.quantity = item.quantity + 1;
     cart.products[item.id] = item;
     setCart(cart);
+    console.log(Header)
   };
 
   const removeItemList = item => {
@@ -83,25 +85,38 @@ const Carrinho = () => {
   };
 
   const createOrder = () => {
-    app
-      .firestore()
-      .collection("orders")
-      .add({
-        CPF: cpfState,
-        name: nameState,
-        CEP: cepState,
-        street: streetState,
-        neighborhood: neighborhoodState,
-        city: cityState,
-        number: numberState,
-        order: cart,
-        addedAt: new Date().getTime(),
-      })
-      .then(() => {
-        console.log('oi')
-      }).catch((err) => {
-        console.log(err)
-      })
+    if(!Object.keys(cart).length){
+      history.push('/')
+    } else {
+      app
+        .firestore()
+        .collection("orders")
+        .add({
+          CPF: cpfState,
+          name: nameState,
+          CEP: cepState,
+          street: streetState,
+          neighborhood: neighborhoodState,
+          city: cityState,
+          number: numberState,
+          order: cart,
+          addedAt: new Date().getTime(),
+        })
+        .then(() => {
+          Swal.fire({
+            title: 'Pedido enviado',
+            icon: 'success',
+          }).then(() => {
+            localStorage.removeItem('cart');
+          }).then(() => history.push('/'))
+        })
+        .catch((err) => {
+          Swal.fire({
+            title: 'Erro ao enviar pedido',
+            icon: 'error',
+          })
+        })
+      }
   };
 
   return (
