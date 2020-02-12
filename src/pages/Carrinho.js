@@ -18,8 +18,18 @@ const Carrinho = () => {
   const { cart, setCart } = useContext(CartContext);
   console.log(cart)
 
+  // const total = cart.products.reduce((acc, currentValue) => acc + (currentValue.price * currentValue.quantity));
+  const total = () => {
+    const arr = [];
+    for (let i in cart.products){
+      arr.push(cart.products[i].price*cart.products[i].quantity)
+    console.log(arr);
+    }
+    
+    return arr.reduce((acc, currentValue) => acc + currentValue);
+  }
+
   const addItemToList = (item) => {
-    // console.log(item)
     item.quantity = item.quantity + 1;
     cart.products[item.id] = item;
     setCart(cart);
@@ -41,7 +51,11 @@ const Carrinho = () => {
       <Header />
       <main className={css(styles.main)}>
         {Object.values(cart.products).map((item) => <CartItem key={item.id} addItemToList={addItemToList} 
-        removeItemList={removeItemList} item={item}></CartItem>)}
+        removeItemList={removeItemList} item={item} total={total}></CartItem>)}
+      <div>
+        <span>{total().toLocaleString('pt-br', 
+        { style: 'currency', currency: 'BRL' })}</span>
+      </div>
         <Button
           name='Finalizar Compra'
         />

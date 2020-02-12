@@ -35,11 +35,14 @@ const styles = StyleSheet.create({
 
 const CartItem = (props) => {
   const item = props.item;
+  const total = props.total;
+
   return (
     <section className={css(styles.section)}>
       <div className={css(styles.Cart)} key={item.id}>
         <div className={css(styles.list, styles.name)}>{item.name}</div>
-        <div className={css(styles.list)}>{item.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</div>
+        <div className={css(styles.list)}>{item.price.toLocaleString("pt-BR", 
+        { style: "currency", currency: "BRL" })}</div>
         <Input className={css(styles.plusMinus)} id={item.id} value='-' type='submit' onClick={(e) => {
           props.removeItemList(item)
           e.preventDefault();
@@ -50,6 +53,8 @@ const CartItem = (props) => {
           props.addItemToList(item)
           e.preventDefault();
         }}></Input>
+      <span>{Number((item.quantity*item.price).toFixed(2)).toLocaleString('pt-br', 
+      { style: 'currency', currency: 'BRL' })}</span>
       </div>
     </section>
   );
