@@ -26,23 +26,31 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     margin: '0 auto',
-    width: '700px',
+    width: '300px',
     height: '40px',
-    borderRadius: '6px',
-    marginBottom: '0.5%'
+    borderRadius: '10px',
+    marginBottom: '2%',
+    border: '#348bcb groove 1px',
+    textAlign:'justify',
+    '@media (min-width: 768px)': {
+      width:'600px'
+    }
+    
   },
   span: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: '20px',
+    padding: '10px',
     fontWeight: 'bolder',
   },
 
   ButtonPosition: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: '20px',
+    padding: '10px',
   },
+
+  
 });
 
 const Carrinho = () => {
@@ -54,6 +62,7 @@ const Carrinho = () => {
   const [neighborhoodState, setNeighborhood] = useState("");
   const [cityState, setCity] = useState("");
   const [numberState, setNumber] = useState("");
+  const [emailState, setEmail] = useState("");
 
   const history = useHistory();
 
@@ -106,6 +115,7 @@ const Carrinho = () => {
         .add({
           CPF: cpfState,
           name: nameState,
+          email: emailState,
           CEP: cepState,
           street: streetState,
           neighborhood: neighborhoodState,
@@ -158,6 +168,7 @@ const Carrinho = () => {
             <Input className={css(styles.form)} placeholder="Numero" type="text" value={numberState} onChange={(e) => setNumber(e.currentTarget.value)} maxLength="5"></Input>
           </form>
         </fieldset>
+
         <div className={css(styles.ButtonPosition)}>
           <Button
             name='Finalizar Compra'
