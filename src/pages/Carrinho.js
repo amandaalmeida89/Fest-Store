@@ -1,5 +1,5 @@
 
-import React, { useState ,useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Header from '../components/Header';
 import Button from '../components/Button';
 import { CartContext } from '../CartContext';
@@ -31,11 +31,25 @@ const styles = StyleSheet.create({
     borderRadius: '10px',
     marginBottom: '2%',
     border: '#348bcb groove 1px',
-    textAlign:'justify',
+    textAlign: 'justify',
     '@media (min-width: 768px)': {
-      width:'600px'
+      width: '600px'
     }
-    
+
+  },
+  Link: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    textDecoration: 'none',
+    borderRadius: '6px',
+    padding: '2%',
+    color: '#348bcb',
+    fontSize: '25px',
+    '@media (max-width: 768px)': {
+      fontSize: '18px',
+      marginBottom: '5%',
+      marginTop: '3%'
+    },
   },
   span: {
     display: 'flex',
@@ -50,7 +64,7 @@ const styles = StyleSheet.create({
     padding: '10px',
   },
 
-  
+
 });
 
 const Carrinho = () => {
@@ -98,14 +112,14 @@ const Carrinho = () => {
   };
 
   const createOrder = () => {
-    if(Object.keys(cart).length <= 1  &&
-    !cpfState.length && 
-    !nameState.length && 
-    !cepState.length && 
-    !streetState.length && 
-    !neighborhoodState.length && 
-    !cityState.length && 
-    !numberState.length
+    if (Object.keys(cart).length <= 1 &&
+      !cpfState.length &&
+      !nameState.length &&
+      !cepState.length &&
+      !streetState.length &&
+      !neighborhoodState.length &&
+      !cityState.length &&
+      !numberState.length
     ) {
       history.push('/')
     } else {
@@ -138,7 +152,7 @@ const Carrinho = () => {
             icon: 'error',
           })
         })
-      }
+    }
   };
 
   return (
@@ -152,23 +166,22 @@ const Carrinho = () => {
       <main className={css(styles.main)}>
         {Object.values(cart.products).map((item) => <CartItem key={item.id} addItemToList={addItemToList}
           removeItemList={removeItemList} item={item} ></CartItem>)}
+
+        <form>
+          <Input className={css(styles.form)} placeholder="CPF" type="number" value={cpfState} onChange={(e) => setCpf(e.currentTarget.value)} maxLength="11" ></Input>
+          <Input className={css(styles.form)} placeholder="Nome" type="text" value={nameState} onChange={(e) => setName(e.currentTarget.value)} maxLength="50"></Input>
+          <Input className={css(styles.form)} placeholder="exemplo@exemplo.com" type="e-mail" value={emailState} onChange={(e) => setEmail(e.currentTarget.value)} maxLength="40"></Input>
+          <Input className={css(styles.form)} placeholder="CEP" type="number" value={cepState} onChange={(e) => setCep(e.currentTarget.value)} maxLength="9"
+          ></Input>
+          <Input className={css(styles.form)} placeholder="Rua" type="text" value={streetState} onChange={(e) => setStreet(e.currentTarget.value)} maxLength="20"></Input>
+          <Input className={css(styles.form)} placeholder="Bairro" type="text" value={neighborhoodState} onChange={(e) => setNeighborhood(e.currentTarget.value)} maxLength="20"></Input>
+          <Input className={css(styles.form)} placeholder="Cidade" type="text" value={cityState} onChange={(e) => setCity(e.currentTarget.value)} maxLength="30"></Input>
+          <Input className={css(styles.form)} placeholder="Numero" type="text" value={numberState} onChange={(e) => setNumber(e.currentTarget.value)} maxLength="5"></Input>
+        </form>
         <div>
           <span className={css(styles.span)}>{total().totalValue.toLocaleString('pt-br',
             { style: 'currency', currency: 'BRL' })}</span>
         </div>
-        <fieldset>
-          <form>
-            <Input className={css(styles.form)} placeholder="CPF" type="number" value={cpfState} onChange={(e) => setCpf(e.currentTarget.value)} maxLength="11" ></Input>
-            <Input className={css(styles.form)} placeholder="Nome" type="text" value={nameState} onChange={(e) => setName(e.currentTarget.value)} maxLength="50"></Input>
-            <Input className={css(styles.form)} placeholder="CEP" type="number" value={cepState} onChange={(e) => setCep(e.currentTarget.value)} maxLength="9"
-            ></Input>
-            <Input className={css(styles.form)} placeholder="Rua" type="text" value={streetState} onChange={(e) => setStreet(e.currentTarget.value)} maxLength="20"></Input>
-            <Input className={css(styles.form)} placeholder="Bairro" type="text" value={neighborhoodState} onChange={(e) => setNeighborhood(e.currentTarget.value)} maxLength="20"></Input>
-            <Input className={css(styles.form)} placeholder="Cidade" type="text" value={cityState} onChange={(e) => setCity(e.currentTarget.value)} maxLength="30"></Input>
-            <Input className={css(styles.form)} placeholder="Numero" type="text" value={numberState} onChange={(e) => setNumber(e.currentTarget.value)} maxLength="5"></Input>
-          </form>
-        </fieldset>
-
         <div className={css(styles.ButtonPosition)}>
           <Button
             name='Finalizar Compra'
