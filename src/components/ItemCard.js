@@ -24,12 +24,6 @@ const styles = StyleSheet.create({
   ImageCard: {
     width: '200px',
     height: '200px',
-    // '@media only screen (min-width: 1270px)': {
-    //   Card: {
-    //     width: '400px',
-    //     height: '400px',
-    //   }
-    // }
   },
   labelCard: {
     padding: '10px',

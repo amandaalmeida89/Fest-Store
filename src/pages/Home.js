@@ -9,7 +9,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    fetch('http://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/product-list')
+    fetch('https://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/product-list')
       .then(res => res.json())
       .then((resonse) => {
         const productsList = resonse;

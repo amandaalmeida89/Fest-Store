@@ -83,7 +83,7 @@ const DetailsProduct = () => {
   useEffect(() => {
     const url = new URL(window.location.href);
     const id = url.searchParams.get('id')
-    fetch('http://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/products/' + id)
+    fetch('https://my-json-server.typicode.com/jusbrasil/hackathon-laboratoria/products/' + id)
       .then(res => res.json())
       .then((response) => {
         setProducts(response)
